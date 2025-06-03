@@ -5,6 +5,52 @@ import os
 import pandas as pd
 import requests
 import gdown
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background: linear-gradient(to bottom, #3e2f5b, #d4c2f0);
+        color: white;
+        min-height: 100vh;
+        padding: 2rem;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    h1 {
+        color: #ffffff !important;
+        font-weight: bold;
+    }
+
+    label[data-testid="stSelectboxLabel"] {
+        color: black !important;
+        font-weight: bold;
+    }
+
+    .stSelectbox > div, .stTextInput > div > div > input {
+        background-color: rgba(255, 255, 255, 0.7) !important;
+        color: #2c2c54 !important;
+        border: 1px solid #cccccc;
+        border-radius: 6px;
+    }
+
+    .stButton > button {
+        background-color: #2c2c54 !important;
+        color: white !important;
+        border: none;
+        border-radius: 8px;
+        padding: 0.5rem 1rem;
+        font-weight: bold;
+        transition: 0.3s ease;
+    }
+
+    .stButton > button:hover {
+        background-color: #574b90 !important;
+        color: white !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # Google Drive file ID for similarity matrix
 SIMILARITY_FILE_ID = "1byT7LzoLCZYErBBZNk0WqPo0AM1qsc2f"
