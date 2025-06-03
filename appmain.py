@@ -3,7 +3,7 @@ import streamlit as st
 import requests
 import pandas as pd
 import os
-import urllib.request
+import gdown
 
 # Download similarity.pkl if it doesn't exist
 SIMILARITY_URL = "https://drive.google.com/uc?id=1R1D7woHWIVK1HB97iHzW_41YL7Xf1pls"
@@ -11,7 +11,7 @@ SIMILARITY_FILE = "similarity.pkl"
 
 if not os.path.exists(SIMILARITY_FILE):
     st.info("Downloading similarity matrix...")
-    urllib.request.urlretrieve(SIMILARITY_URL, SIMILARITY_FILE)
+    gdown.download(SIMILARITY_URL, SIMILARITY_FILE, quiet=False)
     st.success("Download complete.")
 
 # Function to fetch poster using OMDb API
