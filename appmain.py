@@ -6,14 +6,15 @@ import pandas as pd
 import requests
 import gdown
 
-SIMILARITY_URL = "https://drive.google.com/uc?id=1byT7LzoLCZYErBBZNk0WqPo0AM1qsc2f"
+# Google Drive file ID for similarity matrix
+SIMILARITY_FILE_ID = "1byT7LzoLCZYErBBZNk0WqPo0AM1qsc2f"
 SIMILARITY_FILE = "similarity.pkl.gz"
 
-# Download similarity.pkl.gz if not exists using gdown
+# Download similarity.pkl.gz if it doesn't exist
 if not os.path.exists(SIMILARITY_FILE):
-    st.info("Downloading similarity matrix...")
-    gdown.download(SIMILARITY_URL, SIMILARITY_FILE, quiet=False)
-    st.success("Download complete.")
+    st.info("📥 Downloading similarity matrix...")
+    gdown.download(id=SIMILARITY_FILE_ID, output=SIMILARITY_FILE, quiet=False)
+    st.success("✅ Download complete.")
 
 # Load compressed similarity matrix
 with gzip.open(SIMILARITY_FILE, 'rb') as f:
@@ -27,7 +28,7 @@ if isinstance(movies, dict):
     movies = pd.DataFrame(movies)
 
 def fetch_poster(movie_title):
-    api_key = "8e683932"
+    api_key = "8e683932"  # ⚠️ Replace with your own API key in production
     url = f"http://www.omdbapi.com/?t={movie_title}&apikey={api_key}"
     response = requests.get(url)
     data = response.json()
@@ -38,11 +39,11 @@ def recommend(movie):
     try:
         index = movies[movies['title'] == movie].index[0]
     except IndexError:
-        st.error("Movie not found in the dataset.")
+        st.error("❌ Movie not found in the dataset.")
         return [], []
     distances = sorted(list(enumerate(similarity[index])), reverse=True, key=lambda x: x[1])
     names, posters = [], []
-    for i in distances[1:6]:
+    for i in distances[1:6]:  # Top 5 recommendations
         title = movies.iloc[i[0]].title
         names.append(title)
         posters.append(fetch_poster(title))
